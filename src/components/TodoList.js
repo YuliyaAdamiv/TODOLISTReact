@@ -37,6 +37,11 @@ function TodoList() {
     <div>
       <h1> What's the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
+      <div className="container">
+        <button className="btns">Active</button>
+        <button className="btns">Complited</button>
+        <button className="btns">All</button>
+      </div>
       <Todo
         todos={todos}
         completeTodo={completeTodo}
