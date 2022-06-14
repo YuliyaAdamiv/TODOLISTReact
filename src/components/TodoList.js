@@ -4,6 +4,31 @@ import Todo from './Todo';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
+  const [showTodos, setShowTodos] = useState(true);
+  let todoItems = [];
+  let active = [];
+  const addActiveTodo = () => {
+    for (const i in todos) {
+      if (!todos[i].isComplete) {
+        active.push(todos[i]);
+        console.log(active);
+      }
+    }
+    active = [];
+    // setShowTodos(false);
+  };
+  const addComplitedTodo = () => {
+    for (const j in todos) {
+      if (todos[j].isComplete === true) {
+        todoItems.push(todos[j]);
+        console.log(todoItems);
+      }
+    }
+    todoItems = [];
+  };
+  const addAllTodo = () => {
+    console.log(todos);
+  };
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
       return;
@@ -38,16 +63,24 @@ function TodoList() {
       <h1> What's the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
       <div className="container">
-        <button className="btns">Active</button>
-        <button className="btns">Complited</button>
-        <button className="btns">All</button>
+        <button className="btns" onClick={addActiveTodo}>
+          Active
+        </button>
+        <button className="btns" onClick={addComplitedTodo}>
+          Complited
+        </button>
+        <button className="btns" onClick={addAllTodo}>
+          All
+        </button>
       </div>
+      {/* {showTodos ? ( */}
       <Todo
         todos={todos}
         completeTodo={completeTodo}
         removeTodo={removeTodo}
         updateTodo={updateTodo}
       />
+      {/* ) : null} */}
     </div>
   );
 }
