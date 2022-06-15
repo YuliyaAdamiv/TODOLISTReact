@@ -4,30 +4,87 @@ import Todo from './Todo';
 
 function TodoList() {
   const [todos, setTodos] = useState([]);
-  const [showTodos, setShowTodos] = useState(true);
+
   let todoItems = [];
   let active = [];
-  const addActiveTodo = () => {
+  const AddActiveTodo = () => {
     for (const i in todos) {
       if (!todos[i].isComplete) {
         active.push(todos[i]);
         console.log(active);
       }
     }
-    active = [];
-    // setShowTodos(false);
+    // active = [];
+    const [actives, toggleActive] = React.useState(true);
+
+    return (
+      <div>
+        <button className="btns" onClick={() => toggleActive(!actives)}>
+          Active: {actives ? 'active' : 'hide'}
+        </button>
+        {actives && (
+          <div>
+            <Todo
+              todos={active}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          </div>
+        )}
+      </div>
+    );
   };
-  const addComplitedTodo = () => {
+  const AddComplitedTodo = () => {
     for (const j in todos) {
       if (todos[j].isComplete === true) {
         todoItems.push(todos[j]);
         console.log(todoItems);
       }
     }
-    todoItems = [];
+    // todoItems = [];
+    const [show, toggleShow] = React.useState(true);
+
+    return (
+      <div>
+        <button className="btns" onClick={() => toggleShow(!show)}>
+          Completed: {show ? 'active' : 'hide'}
+        </button>
+        {show && (
+          <div>
+            {' '}
+            <Todo
+              todos={todoItems}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          </div>
+        )}
+      </div>
+    );
   };
-  const addAllTodo = () => {
-    console.log(todos);
+  const AddAllTodo = () => {
+    const [all, toggleAll] = React.useState(true);
+
+    return (
+      <div>
+        <button className="btns" onClick={() => toggleAll(!all)}>
+          All: {all ? 'active' : 'hide'}
+        </button>
+        {all && (
+          <div>
+            {' '}
+            <Todo
+              todos={todos}
+              completeTodo={completeTodo}
+              removeTodo={removeTodo}
+              updateTodo={updateTodo}
+            />
+          </div>
+        )}
+      </div>
+    );
   };
   const addTodo = (todo) => {
     if (!todo.text || /^\s*$/.test(todo.text)) {
@@ -63,24 +120,12 @@ function TodoList() {
       <h1> What's the Plan for Today?</h1>
       <TodoForm onSubmit={addTodo} />
       <div className="container">
-        <button className="btns" onClick={addActiveTodo}>
-          Active
-        </button>
-        <button className="btns" onClick={addComplitedTodo}>
-          Complited
-        </button>
-        <button className="btns" onClick={addAllTodo}>
-          All
-        </button>
+        <AddActiveTodo className="btns" />
+
+        <AddComplitedTodo className="btns" />
+
+        <AddAllTodo className="btns" />
       </div>
-      {/* {showTodos ? ( */}
-      <Todo
-        todos={todos}
-        completeTodo={completeTodo}
-        removeTodo={removeTodo}
-        updateTodo={updateTodo}
-      />
-      {/* ) : null} */}
     </div>
   );
 }
