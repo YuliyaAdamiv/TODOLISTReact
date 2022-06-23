@@ -8,19 +8,18 @@ function TodoList() {
   let todoItems = [];
   let active = [];
   const AddActiveTodo = () => {
+    active = [];
     for (const i in todos) {
       if (!todos[i].isComplete) {
         active.push(todos[i]);
-        console.log(active);
       }
     }
-    // active = [];
     const [actives, toggleActive] = React.useState(true);
 
     return (
       <div>
         <button className="btns" onClick={() => toggleActive(!actives)}>
-          Active: {actives ? 'active' : 'hide'}
+          Active tasks: {actives ? 'active' : 'hide'}
         </button>
         {actives && (
           <div>
@@ -36,19 +35,18 @@ function TodoList() {
     );
   };
   const AddComplitedTodo = () => {
+    todoItems = [];
     for (const j in todos) {
       if (todos[j].isComplete === true) {
         todoItems.push(todos[j]);
-        console.log(todoItems);
       }
     }
-    // todoItems = [];
     const [show, toggleShow] = React.useState(true);
 
     return (
       <div>
         <button className="btns" onClick={() => toggleShow(!show)}>
-          Completed: {show ? 'active' : 'hide'}
+          Completed tasks: {show ? 'active' : 'hide'}
         </button>
         {show && (
           <div>
@@ -70,7 +68,7 @@ function TodoList() {
     return (
       <div>
         <button className="btns" onClick={() => toggleAll(!all)}>
-          All: {all ? 'active' : 'hide'}
+          All tasks: {all ? 'active' : 'hide'}
         </button>
         {all && (
           <div>
